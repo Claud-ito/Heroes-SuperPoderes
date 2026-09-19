@@ -1,0 +1,26 @@
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using HeroesWeb.Data;
+using HeroesWeb.Models;
+
+namespace HeroesWeb.Pages_SuperPoderes
+{
+    public class IndexModel : PageModel
+    {
+        private readonly HeroesContext _context;
+
+        public IndexModel(HeroesContext context)
+        {
+            _context = context;
+        }
+
+        public IList<SuperPoderes> SuperPoderes { get; set; } = default!;
+
+        public async Task OnGetAsync()
+        {
+            SuperPoderes = await _context.SuperPoderes
+                .Include(sp => sp.Heroe)
+                .ToListAsync();
+        }
+    }
+}

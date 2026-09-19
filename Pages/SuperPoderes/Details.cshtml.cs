@@ -1,0 +1,38 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using HeroesWeb.Data;
+using HeroesWeb.Models;
+
+namespace HeroesWeb.Pages_SuperPoderes
+{
+    public class DetailsModel : PageModel
+    {
+        private readonly HeroesContext _context;
+
+        public DetailsModel(HeroesContext context)
+        {
+            _context = context;
+        }
+
+        public SuperPoderes SuperPoderes { get; set; } = default!;
+
+        public async Task<IActionResult> OnGetAsync(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var superpoderes = await _context.SuperPoderes
+                .Include(sp => sp.Heroe)
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (superpoderes == null)
+            {
+                return NotFound();
+            }
+            SuperPoderes = superpoderes;
+            return Page();
+        }
+    }
+}
