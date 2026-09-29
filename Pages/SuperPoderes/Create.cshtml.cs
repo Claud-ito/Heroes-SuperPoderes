@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,6 +29,7 @@ namespace HeroesWeb.Pages_SuperPoderes
         [BindProperty]
         public SuperPoderes SuperPoderes { get; set; } = default!;
 
+        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             // El heroe debe existir; se valida aparte porque Heroe tiene [ValidateNever].

@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +36,7 @@ namespace HeroesWeb.Pages_SuperPoderes
             if (superpoderes is not null)
             {
                 SuperPoderes = superpoderes;
+
                 return Page();
             }
 

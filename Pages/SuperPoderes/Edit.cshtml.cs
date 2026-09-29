@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -32,10 +36,12 @@ namespace HeroesWeb.Pages_SuperPoderes
                 return NotFound();
             }
             SuperPoderes = superpoderes;
-            ViewData["HeroeId"] = new SelectList(_context.Heroes, "Id", "Nombre", SuperPoderes.HeroeId);
+           ViewData["HeroeId"] = new SelectList(_context.Heroes, "Id", "Nombre", SuperPoderes.HeroeId);
             return Page();
         }
 
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!await _context.Heroes.AnyAsync(h => h.Id == SuperPoderes.HeroeId))
@@ -68,6 +74,11 @@ namespace HeroesWeb.Pages_SuperPoderes
             }
 
             return RedirectToPage("./Index");
+        }
+
+        private bool SuperPoderesExists(int id)
+        {
+            return _context.SuperPoderes.Any(e => e.Id == id);
         }
     }
 }

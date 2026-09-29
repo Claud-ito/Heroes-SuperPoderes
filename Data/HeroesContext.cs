@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using HeroesWeb.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,13 +9,15 @@ namespace HeroesWeb.Data
     {
         public HeroesContext(DbContextOptions<HeroesContext> options) : base(options)
         {
-        }
+    }
 
         public DbSet<Heroes> Heroes => Set<Heroes>();
         public DbSet<SuperPoderes> SuperPoderes => Set<SuperPoderes>();
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+    public virtual DbSet<SuperPoderes> SuperPoderes { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
             base.OnModelCreating(modelBuilder);
 
             // Un heroe tiene muchos poderes; al borrar el heroe se borran sus poderes (igual que en la base).
@@ -24,4 +28,6 @@ namespace HeroesWeb.Data
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
